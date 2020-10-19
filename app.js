@@ -16,12 +16,12 @@ var app = express();
 app.use(bodyParser.json());
 app.use(function(req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-    res.header("Access-Control-Allow-Origin", "http://localhost:50698");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true);
     next();
 });
-app.use(cors({ origin: 'http://localhost:50698' }));
+app.use(cors({ origin: '*' }));
 // app.use(cors());
 app.use(passport.initialize());
 app.get('/', (req, res) => {

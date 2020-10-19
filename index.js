@@ -14,7 +14,15 @@ var app = express();
 
 // middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(function(req, res, next) { //allow cross origin requests
+    res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Content-Type: application/json');
+    next();
+});
+app.use(cors({ origin: '*' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', rtsIndex);

@@ -3,43 +3,32 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 var userSchema = new mongoose.Schema({
-    firstName: { type: String },
-    lastName: { type: String },
-    email: {
-        type: String,
+    username: {
+        type: String, 
         required: 'Email can\'t be empty',
-        unique: true
+        unique: true,
+        length: [7, 'Username must be 7 character long']
     },
     password: {
         type: String,
         required: 'Password can\'t be empty',
         minlength: [4, 'Password must be atleast 4 character long']
     },
-
-    // freeland : { type:  String  },
-    // sheltered: { type:  String  },
-    // car: { type:  String  },
-    // bus: { type: String  },
-    // bicycle:{ type: String  },
-    // van: { type:  String },
-    // lorry:{ type: String  },
-    // other : { type:  String },
-    // mweight : { type:  String  },
-    // mheight:{ type: String  },
-    // //vehicles: { type: String },
-    // street:{ type:  String  },
-    // city: { type:  String },
-    // state: { type:  String  },
-    // zip:{ type:  String },
-    // nic:{ type: String },
-    // vehicles:{type:Array,default:[]},
-    // saltSecret:{type: String},
-    // dob:{type:Date},
-    // mobileNo:{type:String},
-    // temptoken:{type : String},
-    // verified:{type:Boolean},
-    // regcode:{type:String},
-    // role:{type:String}
+    name: {
+        type: String,
+    },
+    level: {
+        type: Number
+    },
+    semester: {
+        type: Number
+    },
+    batch: {
+        type: Number
+    },
+    gpa: {
+        type: Number
+    }
 });
 
 // Custom validation for email
@@ -57,6 +46,8 @@ userSchema.pre('save', function (next) {
             next();
         });
     });
+
+    
 });
 
 
@@ -65,14 +56,12 @@ userSchema.methods.verifyPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// userSchema.methods.generateJwt = function () {
-//     return jwt.sign({ _id: this._id},
-//         process.env.JWT_SECRET,
-//     {
-//         expiresIn: process.env.JWT_EXP
-//     });
-// }
-
-
+userSchema.methods.generateJwt = function () {
+    return jwt.sign({ _id: this._id},
+        process.env.JWT_SECRET,
+    {
+        expiresIn: process.env.JWT_EXP
+    });
+}
 
 mongoose.model('User', userSchema);

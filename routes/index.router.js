@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const ctrlMobile = require('../controllers/UserAcaMeter');
+const ctrlUser = require('../controllers/UserAcaMeter');
+const ctrlModule = require('../controllers/module.controller');
 
 // const jwtHelper = require('../config/jwtHelper');
 
@@ -9,10 +10,17 @@ const ctrlMobile = require('../controllers/UserAcaMeter');
 // Mobile routing >>>>>>>>>>
 
 
-router.post('/register', ctrlMobile.register);
-router.post('/authenticate', ctrlMobile.authenticate);
+router.post('/register', ctrlUser.register);
+router.post('/authenticate', ctrlUser.authenticate);
+router.post('/getUser', ctrlUser.getUser);
+router.post('/calculateRank', ctrlUser.calculateRank);
+
+router.post('/addModule', ctrlModule.addModule);
+router.post('/moduleBySemester', ctrlModule.modulsBySemester);
+router.post('/updateModule', ctrlModule.updateModule);
+router.post('/calculateSGPA', ctrlModule.calculateSGPA);
+
 // router.post('/updateUser', ctrlMobile.updateUser);
-// router.post('/getUser', ctrlMobile.getUser);
 // router.post('/addUserVehicle', ctrlMobile.addUserVehicle);
 // router.post('/updateUserVehicle', ctrlMobile.updateUserVehicle);
 // router.post('/deleteUserVehicle', ctrlMobile.deleteUserVehicle);

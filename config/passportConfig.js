@@ -6,10 +6,10 @@ var User = mongoose.model('User');
 // var webUser = mongoose.model('webUser');
 // var Park = mongoose.model('park');
 passport.use(
-    new localStrategy({ usernameField: 'email' },
+    new localStrategy({ usernameField: 'username' },
         (username, password, done) => {
             console.log('passport')
-            User.findOne({ email: username },
+            User.findOne({ username: username },
                 (err, user) => {
                     if (err)
                         return done(err);

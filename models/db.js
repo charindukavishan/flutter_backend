@@ -6,6 +6,7 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 });
 
 require('./user.model');
+require('./module.model');
 // require('./webuser.model');
 // require('./park');
 // require('./files');
